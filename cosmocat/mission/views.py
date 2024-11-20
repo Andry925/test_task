@@ -10,7 +10,8 @@ class MissionListView(generics.ListCreateAPIView):
     serializer_class = MissionSerializer
 
     def get_queryset(self):
-        return Mission.objects.select_related('cat').prefetch_related('targets')
+        return Mission.objects.select_related(
+            'cat').prefetch_related('targets')
 
     def perform_create(self, serializer):
         cat_name = self.request.data.get('cat')
@@ -28,7 +29,8 @@ class MissionDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MissionSerializer
 
     def get_queryset(self):
-        return Mission.objects.select_related('cat').prefetch_related('targets')
+        return Mission.objects.select_related(
+            'cat').prefetch_related('targets')
 
     def perform_update(self, serializer):
         current_obj = self.get_object()

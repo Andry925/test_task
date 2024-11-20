@@ -18,7 +18,8 @@ class MissionSerializer(serializers.ModelSerializer):
         try:
             return Cat.objects.get(name=cat_name)
         except Cat.DoesNotExist:
-            raise serializers.ValidationError(f"No cat found with the name '{cat_name}'.")
+            raise serializers.ValidationError(
+                f"No cat found with the name '{cat_name}'.")
 
     def create(self, validated_data):
         targets_data = validated_data.pop('targets', [])
@@ -36,7 +37,8 @@ class MissionSerializer(serializers.ModelSerializer):
 
         if cat_name:
             instance.cat = self.validate_cat(cat_name)
-        instance.completed = validated_data.get('completed', instance.completed)
+        instance.completed = validated_data.get(
+            'completed', instance.completed)
         instance.save()
         existing_targets = {aim.id: aim for aim in instance.targets.all()}
         for target_data in targets_data:
