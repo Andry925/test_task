@@ -9,7 +9,7 @@ URL = "https://api.thecatapi.com/v1/breeds"
 class Cat(models.Model):
     name = models.CharField(max_length=100, unique=True)
     year = models.PositiveIntegerField(default=1)
-    experience = models.DecimalField(max_digits=2, decimal_places=2, default=0)
+    experience = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     salary = models.PositiveIntegerField(default=0, )
     breed = models.CharField(max_length=100)
 
