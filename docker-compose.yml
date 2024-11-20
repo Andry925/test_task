@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: ./cosmocat
+    env_file:
+      - ./cosmocat/cosmocat/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    command: >
+      /bin/bash -c "python3 manage.py makemigrations --noinput&&
+                    python3 manage.py migrate --noinput &&
+                    gunicorn cosmocat.wsgi:application --bind 0.0.0.0:8000"
+    restart: on-failure
+
+  postgres:
+    image: postgres:14.8-alpine3.18
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=django
