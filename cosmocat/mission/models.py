@@ -10,9 +10,3 @@ class Mission(models.Model):
         null=True,
         blank=True)
     completed = models.BooleanField(default=False)
-
-    def save(self, *args, **kwargs):
-        if self.targets.exists() and all(
-                target.completed for target in self.targets.all()):
-            self.completed = True
-        super().save(*args, **kwargs)
